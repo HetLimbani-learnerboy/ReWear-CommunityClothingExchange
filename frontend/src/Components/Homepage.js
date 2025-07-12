@@ -31,7 +31,7 @@ const Homepage = () => {
 
         {/* RIGHT SIDE IMAGE */}
         <div className="image-section">
-          <img src="/image/ShoppingHome.png" alt="Clothing Exchange" />
+          <img src="/image/Homepage.png" alt="Clothing Exchange" />
         </div>
       </div>
 
