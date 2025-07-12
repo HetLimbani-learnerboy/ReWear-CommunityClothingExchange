@@ -10,16 +10,35 @@ const Homepage = () => {
 
   return (
     <div className="homepage-container">
-      <header className="header">
-        <h1 className="title">ReWear – Community Clothing Exchange</h1>
-        <div className="button-group">
-          <button onClick={() => navigate("/signinpage")}>Sign In</button>
-          <button onClick={() => navigate("/signuppage")}>Sign Up</button>
-          <button onClick={() => navigate("/mainpage")}>Get Started</button>
-          <button onClick={toggleSidebar}>☰ Team</button>
-        </div>
-      </header>
+      {/* TEAM BUTTON */}
+      <button className="team-button" onClick={toggleSidebar}>
+        ☰ Team
+      </button>
 
+      {/* MAIN CONTENT SECTION */}
+      <div className="content-wrapper">
+        {/* LEFT SIDE */}
+        <div className="center-content">
+          <h1 className="title">ReWear – Community Clothing Exchange</h1>
+          <div className="button-pair">
+            <button onClick={() => navigate("/signinpage")}>Sign In</button>
+            <button onClick={() => navigate("/signuppage")}>Sign Up</button>
+          </div>
+          <button
+            className="get-started"
+            onClick={() => navigate("/mainpage")}
+          >
+            Get Started
+          </button>
+        </div>
+
+        {/* RIGHT SIDE IMAGE */}
+        <div className="image-section">
+          <img src="/image/ShoppingHome.png" alt="Clothing Exchange" />
+        </div>
+      </div>
+
+      {/* SIDEBAR */}
       <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <h2>Team Members</h2>
         <ul>
@@ -42,7 +61,11 @@ const Homepage = () => {
         </ul>
       </div>
 
-      <div className={`overlay ${sidebarOpen ? "show" : ""}`} onClick={toggleSidebar}></div>
+      {/* SIDEBAR OVERLAY */}
+      <div
+        className={`overlay ${sidebarOpen ? "show" : ""}`}
+        onClick={toggleSidebar}
+      ></div>
     </div>
   );
 };
