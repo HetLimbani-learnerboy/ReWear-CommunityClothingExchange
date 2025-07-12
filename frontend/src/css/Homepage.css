@@ -1,9 +1,3 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body, html {
   height: 100%;
@@ -20,6 +14,10 @@ body, html {
   padding: 1rem;
 }
 
+.hide-button {
+  display: none;
+}
+ 
 /* Top-Right Fixed Team Button */
 .team-button {
   position: fixed;
