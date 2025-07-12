@@ -64,8 +64,12 @@ const Signup = ({ onLogin }) => {
       const data = await res.json();
 
       if (res.ok) {
+        // ✅ Save email and username in localStorage
+        localStorage.setItem('username', formData.username);
+        localStorage.setItem('email', formData.email);
+
         setSuccessMessage('Account created successfully! Redirecting...');
-        setTimeout(() => navigate('/login'), 1500);
+        setTimeout(() => navigate('/mainpage'), 1000);
       } else {
         setErrors({ submit: data.message || 'Signup failed. Please try again.' });
       }
@@ -149,7 +153,7 @@ const Signup = ({ onLogin }) => {
         </form>
 
         <div className="login-link">
-          Already have an account? <Link to="/login">Log in</Link>
+          Already have an account? <Link to="/signinpage">Log in</Link>
         </div>
         <div className="back-button-container">
           <Link to="/" className="back-btn">← Back to Home</Link>
