@@ -89,6 +89,87 @@ const Mainpage = () => {
       inStock: true,
       isNew: true,
     },
+    {
+      id: 2,
+      name: 'Men\'s Slim Fit Jeans',
+      description: 'Classic slim fit jeans made with premium denim. Comfortable and durable for everyday wear.',
+      price: 59.99,
+      originalPrice: 79.99,
+      discount: 25,
+      imageUrl: 'https://via.placeholder.com/300x400?text=Slim+Jeans',
+      rating: 4.2,
+      reviewCount: 86,
+      colors: ['Blue', 'Black', 'Gray'],
+      sizes: ['28', '30', '32', '34', '36'],
+      category: 'Men',
+      inStock: true,
+      isNew: false,
+    },
+    {
+      id: 3,
+      name: 'Unisex Running Shoes',
+      description: 'High-performance running shoes with cushioned soles for maximum comfort during workouts.',
+      price: 89.99,
+      originalPrice: 109.99,
+      discount: 18,
+      imageUrl: 'https://via.placeholder.com/300x400?text=Running+Shoes',
+      rating: 4.7,
+      reviewCount: 215,
+      colors: ['White', 'Black', 'Blue'],
+      sizes: ['6', '7', '8', '9', '10', '11'],
+      category: 'Shoes',
+      inStock: true,
+      isNew: true,
+    },
+    {
+      id: 4,
+      name: 'Leather Crossbody Bag',
+      description: 'Stylish and practical leather crossbody bag with multiple compartments for organization.',
+      price: 65.99,
+      originalPrice: 85.99,
+      discount: 23,
+      imageUrl: 'https://via.placeholder.com/300x400?text=Crossbody+Bag',
+      rating: 4.3,
+      reviewCount: 54,
+      colors: ['Brown', 'Black'],
+      sizes: ['One Size'],
+      category: 'Accessories',
+      inStock: true,
+      isNew: false,
+    },
+    {
+      id: 5,
+      name: 'Kids\' Hooded Jacket',
+      description: 'Warm and cozy hooded jacket for kids with water-resistant outer layer.',
+      price: 39.99,
+      originalPrice: 49.99,
+      discount: 20,
+      imageUrl: 'https://via.placeholder.com/300x400?text=Kids+Jacket',
+      rating: 4.1,
+      reviewCount: 37,
+      colors: ['Red', 'Blue', 'Pink'],
+      sizes: ['4-5', '6-7', '8-9'],
+      category: 'Kids',
+      inStock: true,
+      isNew: true,
+    },
+    {
+      id: 6,
+      name: 'Women\'s Cashmere Sweater',
+      description: 'Luxurious cashmere sweater for women with a relaxed fit. Perfect for cooler days.',
+      price: 129.99,
+      originalPrice: 159.99,
+      discount: 19,
+      imageUrl: 'https://via.placeholder.com/300x400?text=Cashmere+Sweater',
+      rating: 4.8,
+      reviewCount: 92,
+      colors: ['Beige', 'Gray', 'Navy'],
+      sizes: ['S', 'M', 'L'],
+      category: 'Women',
+      inStock: false,
+      isNew: false,
+    },
+
     // Add more products here...
   ];
 
@@ -136,18 +217,13 @@ const Mainpage = () => {
   };
 
   const navLinks = [
-    { name: 'New Arrivals', href: '#', dropdown: false },
-    { name: 'Women', href: '#', dropdown: true, items: ['Dresses', 'Tops'] },
-    { name: 'Men', href: '#', dropdown: true, items: ['Shirts', 'Pants'] },
-    { name: 'Sale', href: '#', dropdown: false },
-    { name: 'About', href: '#', dropdown: false },
   ];
 
   return (
     <div>
       <nav className="navbar">
         <div className="nav-container">
-          <a href="/" className="logo">FASHION<span>HUB</span></a>
+          <a href="/" className="logo">Re<span>Wear</span></a>
           <ul className="nav-links">
             {navLinks.map((link, i) => (
               <li key={i} className={link.dropdown ? 'dropdown' : ''}>
