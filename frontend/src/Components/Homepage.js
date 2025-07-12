@@ -44,19 +44,24 @@ const Homepage = () => {
         <ul>
           <li>
             <strong>Het Limbani</strong><br />
-            het@example.com
+            Email: hetlimbani61@gmail.com <br/>
+            Phone: 7046259573
+
           </li>
           <li>
-            <strong>Riya Sharma</strong><br />
-            riya@example.com
+            <strong>Harshkumar Patel</strong><br />
+            Email: hetlimbani61@gmail.com <br/>
+            Phone: 7046259573
           </li>
           <li>
-            <strong>Arjun Patel</strong><br />
-            arjun@example.com
+            <strong>Sahil Dobaria</strong><br />
+            Email: hetlimbani61@gmail.com <br/>
+            Phone: 7046259573
           </li>
           <li>
-            <strong>Sana Khan</strong><br />
-            sana@example.com
+            <strong>Rohan Upadhyay</strong><br />
+            Email: hetlimbani61@gmail.com <br/>
+            Phone: 7046259573
           </li>
         </ul>
       </div>
