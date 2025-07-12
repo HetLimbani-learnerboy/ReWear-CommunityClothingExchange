@@ -42,46 +42,45 @@ const Signup = ({ onLogin }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  //const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // if (!validate()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-    // setIsSubmitting(true);
-    // setErrors({});
-    // setSuccessMessage('');
+    setIsSubmitting(true);
+    setErrors({});
+    setSuccessMessage('');
 
-    // try {
-    //   const res = await fetch('http://localhost:5021/signup', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       username: formData.username,
-    //       email: formData.email,
-    //       password: formData.password
-    //     })
-    //   });
+    try {
+      const res = await fetch('http://localhost:5021/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password
+        })
+      });
 
-    //   const data = await res.json();
-    //   setTimeout(() => navigate('/mainpage'), 1000);
+      const data = await res.json();
+      setTimeout(() => navigate('/mainpage'), 1000);
 
-    //   if (res.ok) {
-    //     // ✅ Save email and username in localStorage
-    //     localStorage.setItem('username', formData.username);
-    //     localStorage.setItem('email', formData.email);
+      if (res.ok) {
+  
+        localStorage.setItem('username', formData.username);
+        localStorage.setItem('email', formData.email);
 
-    //     setSuccessMessage('Account created successfully! Redirecting...');
-    //     setTimeout(() => navigate('/mainpage'), 1000);
-    //   } else {
-    //     setErrors({ submit: data.message || 'Signup failed. Please try again.' });
-    //   }
-    // } catch (err) {
-    //   console.error('Signup failed:', err);
-    //   setErrors({ submit: 'Server error. Please try again later.' });
-    // } finally {
-    //   setIsSubmitting(false);
-     // }
- // }
-//}
+        setSuccessMessage('Account created successfully! Redirecting...');
+        setTimeout(() => navigate('/mainpage'), 1000);
+      } else {
+        setErrors({ submit: data.message || 'Signup failed. Please try again.' });
+      }
+    } catch (err) {
+      console.error('Signup failed:', err);
+      setErrors({ submit: 'Server error. Please try again later.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -92,7 +91,7 @@ const Signup = ({ onLogin }) => {
         {errors.submit && <div className="error-message">{errors.submit}</div>}
         {successMessage && <div className="success-message">{successMessage}</div>}
 
-        <form onSubmit={() => navigate('/mainpage')}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -166,4 +165,3 @@ const Signup = ({ onLogin }) => {
 };
 
 export default Signup;
-
