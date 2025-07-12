@@ -10,10 +10,13 @@ const Homepage = () => {
 
   return (
     <div className="homepage-container">
-      {/* TEAM BUTTON */}
-      <button className="team-button" onClick={toggleSidebar}>
+      <button
+        className={`team-button ${sidebarOpen ? "hide-button" : ""}`}
+        onClick={toggleSidebar}
+      >
         ☰ Team
       </button>
+
 
       {/* MAIN CONTENT SECTION */}
       <div className="content-wrapper">
@@ -24,12 +27,6 @@ const Homepage = () => {
             <button onClick={() => navigate("/signinpage")}>Sign In</button>
             <button onClick={() => navigate("/signuppage")}>Sign Up</button>
           </div>
-          <button
-            className="get-started"
-            onClick={() => navigate("/mainpage")}
-          >
-            Get Started
-          </button>
         </div>
 
         {/* RIGHT SIDE IMAGE */}
@@ -44,24 +41,24 @@ const Homepage = () => {
         <ul>
           <li>
             <strong>Het Limbani</strong><br />
-            Email: hetlimbani61@gmail.com <br/>
+            Email: hetlimbani61@gmail.com <br />
             Phone: 7046259573
 
           </li>
           <li>
             <strong>Harshkumar Patel</strong><br />
-            Email: hetlimbani61@gmail.com <br/>
-            Phone: 7046259573
+            Email: pharsh0106@gmail.com <br />
+            Phone: +91 7990800271
           </li>
           <li>
             <strong>Sahil Dobaria</strong><br />
-            Email: hetlimbani61@gmail.com <br/>
-            Phone: 7046259573
+            Email: sjdobaria@gmail.com <br />
+            Phone: +91 9925899323
           </li>
           <li>
             <strong>Rohan Upadhyay</strong><br />
-            Email: hetlimbani61@gmail.com <br/>
-            Phone: 7046259573
+            Email: upadhyayrohan30@gmail.com <br />
+            Phone: +91 8000545089
           </li>
         </ul>
       </div>
