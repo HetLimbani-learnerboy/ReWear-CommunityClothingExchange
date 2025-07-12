@@ -1,71 +1,93 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import '../css/Signinpage.css'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../css/Signinpage.css';
 
 const Loginpage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
+  const togglePassword = () => setShowPassword(!showPassword);
 
-    const togglePassword = () => {
-        setShowPassword(!showPassword);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    return (
-        <div className="signin-body">
-            <div className="signin-container">
-                <h2>Sign In</h2>
-                <form >
-                    <div className="form-group email-group">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="👤 Enter your Email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            required
-                        />
-                    </div>
+    try {
+      const res = await fetch('http://localhost:5021/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-                    <div className="form-group password-group">
-                        <label htmlFor="password">Password:</label>
-                        <div className="password-wrapper">
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                id="password"
-                                name="password"
-                                placeholder="🔐 Enter your password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                value={password}
-                                required
-                            />
-                            <span className="eye-icon" onClick={togglePassword}>
-                                <img
-                                    src={showPassword ? '/image/eye_open.png' : '/image/eye-close.svg'}
-                                    alt="Toggle password visibility"
-                                    className="eye-icon-img"
-                                />
-                            </span>
-                        </div>
-                    </div>
+      const data = await res.json();
 
-                    <div className="forgot-password">
-                        <Link to="/forgotpassword">Forgot Password?</Link>
-                    </div>
-                    <button className="signin-btn" type="submit">Sign In</button>
-                </form>
+      if (res.ok) {
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('email', data.email);
+        navigate('/mainpage');
+      } else {
+        setError(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      console.error('Login failed:', err);
+      setError('Something went wrong. Try again.');
+    }
+  };
 
-                <p>
-                    <Link className="back-btn" to="/">← Back to Home</Link>
-                </p>
+  return (
+    <div className="signin-body">
+      <div className="signin-container">
+        <h2>Sign In</h2>
+        <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
+
+          <div className="form-group email-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="👤 Enter your Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+          </div>
+
+          <div className="form-group password-group">
+            <label htmlFor="password">Password:</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                placeholder="🔐 Enter your password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
+              <span className="eye-icon" onClick={togglePassword}>
+                <img
+                  src={showPassword ? '/image/eye_open.png' : '/image/eye-close.svg'}
+                  alt="Toggle password visibility"
+                  className="eye-icon-img"
+                />
+              </span>
             </div>
-        </div>
-    );
+          </div>
+
+          <div className="forgot-password">
+            <Link to="/forgotpassword">Forgot Password?</Link>
+          </div>
+          <button className="signin-btn" type="submit">Sign In</button>
+        </form>
+
+        <p><Link className="back-btn" to="/">← Back to Home</Link></p>
+      </div>
+    </div>
+  );
 };
 
 export default Loginpage;
