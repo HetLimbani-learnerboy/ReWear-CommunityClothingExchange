@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaUser, FaShoppingBag, FaBars, FaChevronDown } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import '../css/Mainpage.css'
 
 const Mainpage = () => {
+    const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const mobileNavRef = useRef(null);
@@ -53,7 +56,7 @@ const Mainpage = () => {
     <>
       <nav className="navbar">
         <div className="nav-container">
-          <a href="/" className="logo">FASHION<span>HUB</span></a>
+          <a href="/" className="logo">RE<span>WEAR</span></a>
           
           <ul className="nav-links">
             {navLinks.map((link, index) => (
@@ -73,8 +76,8 @@ const Mainpage = () => {
           <div className="nav-icons">
             <a href="#"><FaSearch /></a>
             <div className="auth-buttons">
-              <a href="#" className="login-btn">Login</a>
-              <a href="#" className="signup-btn">Sign Up</a>
+              <button  onClick={()=>navigate('/signinpage')} className="login-button">Login</button>
+              <button onClick={()=>navigate('/signuppage')} className="signup-button">Sign Up</button>
             </div>
             <a href="#"><FaUser /></a>
             <a href="#" className="cart-icon">
