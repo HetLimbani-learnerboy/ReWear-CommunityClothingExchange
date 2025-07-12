@@ -9,36 +9,26 @@ const Signup = ({ onLogin }) => {
     email: '',
     password: '',
     confirmPassword: '',
-    location: '',
-    sizePreferences: []
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
-    });
-  };
-
-  const handleSizeToggle = (size) => {
-    setFormData(prev => {
-      if (prev.sizePreferences.includes(size)) {
-        return {
-          ...prev,
-          sizePreferences: prev.sizePreferences.filter(s => s !== size)
-        };
-      } else {
-        return {
-          ...prev,
-          sizePreferences: [...prev.sizePreferences, size]
-        };
-      }
     });
   };
 
@@ -65,14 +55,6 @@ const Signup = ({ onLogin }) => {
 
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
-    }
-
-    if (!formData.location) {
-      newErrors.location = 'Location is required';
-    }
-
-    if (formData.sizePreferences.length === 0) {
-      newErrors.sizePreferences = 'Select at least one size preference';
     }
 
     setErrors(newErrors);
@@ -114,6 +96,11 @@ const Signup = ({ onLogin }) => {
   return (
     <div className="signup-container">
       <div className="signup-card">
+        <div className="back-button-container">
+          <Link to="/" className="back-btn">
+            ← Back to Home
+          </Link>
+        </div>
         <h2>Join ReWear</h2>
         <p className="subtitle">Create your account to start swapping clothes</p>
         
@@ -148,60 +135,58 @@ const Signup = ({ onLogin }) => {
           
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={errors.password ? 'error' : ''}
-            />
+            <div className="password-input-container">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={errors.password ? 'error' : ''}
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={togglePasswordVisibility}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <img 
+                  src={showPassword ? "/Image/eye-close.svg" : "/Image/eye_open.png"} 
+                  alt={showPassword ? "Hide password" : "Show password"}
+                  className="password-toggle-icon"
+                />
+              </button>
+            </div>
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>
           
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={errors.confirmPassword ? 'error' : ''}
-            />
+            <div className="password-input-container">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={errors.confirmPassword ? 'error' : ''}
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={toggleConfirmPasswordVisibility}
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              >
+                <img 
+                  src={showConfirmPassword ? "/Image/eye-close.svg" : "/Image/eye_open.png"} 
+                  alt={showConfirmPassword ? "Hide password" : "Show password"}
+                  className="password-toggle-icon"
+                />
+              </button>
+            </div>
             {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
           </div>
           
-          <div className="form-group">
-            <label htmlFor="location">Location</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              className={errors.location ? 'error' : ''}
-              placeholder="City, Country"
-            />
-            {errors.location && <span className="error-text">{errors.location}</span>}
-          </div>
-          
-          <div className="form-group">
-            <label>Size Preferences</label>
-            <div className="size-preferences">
-              {sizes.map(size => (
-                <button
-                  key={size}
-                  type="button"
-                  className={`size-btn ${formData.sizePreferences.includes(size) ? 'selected' : ''}`}
-                  onClick={() => handleSizeToggle(size)}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-            {errors.sizePreferences && <span className="error-text">{errors.sizePreferences}</span>}
-          </div>
           
           <button type="submit" className="submit-btn" disabled={isSubmitting}>
             {isSubmitting ? 'Creating account...' : 'Sign Up'}
