@@ -101,3 +101,76 @@
 }
 
 /* Keep all other styles for error states, hover effects, etc. */
+
+/* Back button styles */
+.back-button-container {
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  color: #4a6f57;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #2c3e3b;
+  text-decoration: none;
+}
+
+.back-btn:focus {
+  outline: 2px solid #4a6f57;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Password toggle styles */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  padding-right: 3rem; /* Make space for the toggle button */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  opacity: 0.7;
+}
+
+.password-toggle-btn:focus {
+  outline: 2px solid #4a6f57;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.password-toggle-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.password-toggle-btn:hover .password-toggle-icon {
+  opacity: 0.8;
+}
