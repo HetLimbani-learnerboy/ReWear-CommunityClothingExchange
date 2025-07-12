@@ -79,7 +79,7 @@ const Dashboard = ({ user }) => {
                 </div>
               </div>
             ))}
-            <Link to="/add" className="add-item-card">
+            <Link to="/newproduct" className="add-item-card">
               <div className="add-item-content">
                 <span>+</span>
                 <p>List New Item</p>
