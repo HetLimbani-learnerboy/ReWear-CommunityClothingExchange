@@ -1,8 +1,219 @@
-import React from "react";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../css/signup.css';
 
-const Signuppage=()=>{
-    return(
-        <div className="Signuppage-desgin"><h1>It is Signuppage</h1></div>
-    )
-}
-export default Signuppage;
+const Signup = ({ onLogin }) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    location: '',
+    sizePreferences: []
+  });
+
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSizeToggle = (size) => {
+    setFormData(prev => {
+      if (prev.sizePreferences.includes(size)) {
+        return {
+          ...prev,
+          sizePreferences: prev.sizePreferences.filter(s => s !== size)
+        };
+      } else {
+        return {
+          ...prev,
+          sizePreferences: [...prev.sizePreferences, size]
+        };
+      }
+    });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required';
+    } else if (formData.username.length < 3) {
+      newErrors.username = 'Username must be at least 3 characters';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (!formData.location) {
+      newErrors.location = 'Location is required';
+    }
+
+    if (formData.sizePreferences.length === 0) {
+      newErrors.sizePreferences = 'Select at least one size preference';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validate()) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create user object (in a real app, this would come from your backend)
+      const user = {
+        id: Date.now().toString(),
+        username: formData.username,
+        email: formData.email,
+        location: formData.location,
+        sizePreferences: formData.sizePreferences,
+        points: 100, // Starting points
+        joined: new Date().toISOString()
+      };
+      
+      onLogin(user);
+      navigate('/profile');
+    } catch (error) {
+      console.error('Signup failed:', error);
+      setErrors({ submit: 'Signup failed. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="signup-container">
+      <div className="signup-card">
+        <h2>Join ReWear</h2>
+        <p className="subtitle">Create your account to start swapping clothes</p>
+        
+        {errors.submit && <div className="error-message">{errors.submit}</div>}
+        
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className={errors.username ? 'error' : ''}
+            />
+            {errors.username && <span className="error-text">{errors.username}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? 'error' : ''}
+            />
+            {errors.email && <span className="error-text">{errors.email}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={errors.password ? 'error' : ''}
+            />
+            {errors.password && <span className="error-text">{errors.password}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={errors.confirmPassword ? 'error' : ''}
+            />
+            {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className={errors.location ? 'error' : ''}
+              placeholder="City, Country"
+            />
+            {errors.location && <span className="error-text">{errors.location}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label>Size Preferences</label>
+            <div className="size-preferences">
+              {sizes.map(size => (
+                <button
+                  key={size}
+                  type="button"
+                  className={`size-btn ${formData.sizePreferences.includes(size) ? 'selected' : ''}`}
+                  onClick={() => handleSizeToggle(size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            {errors.sizePreferences && <span className="error-text">{errors.sizePreferences}</span>}
+          </div>
+          
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Creating account...' : 'Sign Up'}
+          </button>
+        </form>
+        
+        <div className="login-link">
+          Already have an account? <Link to="/login">Log in</Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;

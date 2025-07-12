@@ -1,0 +1,103 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+.signup-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+.signup-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
+  color: #2c3e3b;
+}
+
+.subtitle {
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #757575;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem; /* Optimal label spacing */
+  font-weight: 500;
+  color: #2c3e3b;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4a6f57;
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  display: block;
+}
+
+.size-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.4rem 0; /* Balanced spacing */
+}
+
+.size-btn {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.8rem; /* Slightly increased for better visual separation */
+  background-color: #4a6f57;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #757575;
+}
+
+/* Keep all other styles for error states, hover effects, etc. */
