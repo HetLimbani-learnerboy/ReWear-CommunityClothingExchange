@@ -17,6 +17,7 @@ import {
 import '../css/Mainpage.css';
 
 const Mainpage = () => {
+    const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -285,7 +286,7 @@ const Mainpage = () => {
       <nav className="navbar">
         <div className="nav-container">
           <a href="/" className="logo">
-            FASHION<span>HUB</span>
+            RE<span>WEAR</span>
           </a>
 
           <ul className="nav-links">
@@ -310,12 +311,8 @@ const Mainpage = () => {
               <FaSearch />
             </a>
             <div className="auth-buttons">
-              <a href="#" className="login-btn">
-                Login
-              </a>
-              <a href="#" className="signup-btn">
-                Sign Up
-              </a>
+               <button  onClick={()=>navigate('/signinpage')} className="login-button">Login</button>
+              <button onClick={()=>navigate('/signuppage')} className="signup-button">Sign Up</button>
             </div>
             <a href="#">
               <FaUser />
