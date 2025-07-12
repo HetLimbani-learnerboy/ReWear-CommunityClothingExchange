@@ -315,9 +315,8 @@ const Mainpage = () => {
                <button  onClick={()=>navigate('/signinpage')} className="login-button">Login</button>
               <button onClick={()=>navigate('/signuppage')} className="signup-button">Sign Up</button>
             </div>
-            <a href="#">
-              <FaUser />
-            </a>
+            
+              <button  onClick={()=>navigate('/userdash')} className="login-button"> <FaUser /></button>
             <a href="#" className="cart-icon">
               <FaShoppingBag />
               <span className="cart-count">{cart.length}</span>

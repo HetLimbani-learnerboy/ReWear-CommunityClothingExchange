@@ -4,6 +4,7 @@ import Homepage from "./Components/Homepage";
 import Signuppage from "./Components/Signuppage";
 import Loginpage from "./Components/Loginpage";
 import Mainpage from "./Components/Mainpage";
+import Userdash from "./Components/Userdashbord";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/mainpage" element={<Mainpage/>}/>
         <Route path="/signinpage" element={<Loginpage/>}/>
         <Route path="/signuppage" element={<Signuppage/>}/>
+        <Route path="/userdash" element={<Userdash/>}/>
       </Routes>
     </BrowserRouter>
   );
