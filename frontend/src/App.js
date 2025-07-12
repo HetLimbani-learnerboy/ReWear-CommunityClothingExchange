@@ -5,6 +5,7 @@ import Signuppage from "./Components/Signuppage";
 import Loginpage from "./Components/Loginpage";
 import Mainpage from "./Components/Mainpage";
 import Userdash from "./Components/Userdashbord";
+import ProductListing from "./Components/ProductListing";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signinpage" element={<Loginpage/>}/>
         <Route path="/signuppage" element={<Signuppage/>}/>
         <Route path="/userdash" element={<Userdash/>}/>
+        <Route path="/newproduct" element={<ProductListing/>}/>
       </Routes>
     </BrowserRouter>
   );
