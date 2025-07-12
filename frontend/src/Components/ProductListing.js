@@ -1,116 +1,169 @@
 import React, { useState } from 'react';
-import { FaStar, FaRegStar, FaStarHalfAlt, FaHeart, FaRegHeart, FaShoppingCart, FaFilter } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaUpload, FaPlus, FaMinus, FaArrowLeft } from 'react-icons/fa';
 import '../css/ProductListing.css';
 
-// This would normally come from your database/API
-const products = [
-  {
-    id: 1,
-    name: 'Women\'s Floral Summer Dress',
-    description: 'Lightweight and breathable summer dress with floral pattern.',
-    price: 49.99,
-    originalPrice: 69.99,
-    discount: 30,
-    imageUrl: 'https://via.placeholder.com/300x400?text=Floral+Dress',
-    rating: 4.5,
-    reviewCount: 128,
-    colors: ['Red', 'Blue', 'Yellow'],
-    sizes: ['S', 'M', 'L', 'XL'],
-    category: 'Women',
-    inStock: true,
-    isNew: true,
-  },
-  // Add all your other products here (same as in Mainpage.js)
-  // ...
-];
-
-const ProductListing = () => {
-  const [wishlist, setWishlist] = useState([]);
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState({
-    category: '',
-    priceRange: '',
-    size: '',
-    color: '',
-    sortBy: 'popular',
-  });
+const AddProduct = () => {
   const navigate = useNavigate();
-
-  const toggleWishlist = (productId) => {
-    setWishlist(prev => 
-      prev.includes(productId) 
-        ? prev.filter(id => id !== productId) 
-        : [...prev, productId]
-    );
-  };
-
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters(prev => ({ ...prev, [name]: value }));
-  };
-
-  const renderRatingStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-
-    for (let i = 1; i <= 5; i++) {
-      if (i <= fullStars) {
-        stars.push(<FaStar key={i} className="star filled" />);
-      } else if (i === fullStars + 1 && hasHalfStar) {
-        stars.push(<FaStarHalfAlt key={i} className="star half-filled" />);
-      } else {
-        stars.push(<FaRegStar key={i} className="star" />);
-      }
-    }
-
-    return stars;
-  };
-
-  const filteredProducts = products.filter(product => {
-    return (
-      (filters.category === '' || product.category === filters.category) &&
-      (filters.priceRange === '' || 
-        (filters.priceRange === 'under50' && product.price < 50) ||
-        (filters.priceRange === '50to100' && product.price >= 50 && product.price <= 100) ||
-        (filters.priceRange === 'over100' && product.price > 100))
-      // Add other filter conditions as needed
-    );
-  }).sort((a, b) => {
-    switch(filters.sortBy) {
-      case 'price-low': return a.price - b.price;
-      case 'price-high': return b.price - a.price;
-      case 'newest': return a.isNew ? -1 : 1;
-      case 'rating': return b.rating - a.rating;
-      default: return 0; // 'popular' or default
-    }
+  const [product, setProduct] = useState({
+    name: '',
+    description: '',
+    price: '',
+    originalPrice: '',
+    category: '',
+    colors: [],
+    sizes: [],
+    inStock: true,
+    isNew: false,
   });
+  const [currentColor, setCurrentColor] = useState('');
+  const [currentSize, setCurrentSize] = useState('');
+  const [images, setImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setProduct(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(files);
+    
+    const previews = files.map(file => URL.createObjectURL(file));
+    setPreviewImages(previews);
+  };
+
+  const addColor = () => {
+    if (currentColor && !product.colors.includes(currentColor)) {
+      setProduct(prev => ({
+        ...prev,
+        colors: [...prev.colors, currentColor]
+      }));
+      setCurrentColor('');
+    }
+  };
+
+  const removeColor = (colorToRemove) => {
+    setProduct(prev => ({
+      ...prev,
+      colors: prev.colors.filter(color => color !== colorToRemove)
+    }));
+  };
+
+  const addSize = () => {
+    if (currentSize && !product.sizes.includes(currentSize)) {
+      setProduct(prev => ({
+        ...prev,
+        sizes: [...prev.sizes, currentSize]
+      }));
+      setCurrentSize('');
+    }
+  };
+
+  const removeSize = (sizeToRemove) => {
+    setProduct(prev => ({
+      ...prev,
+      sizes: prev.sizes.filter(size => size !== sizeToRemove)
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Here you would typically send the data to your backend
+    console.log('Product data:', {
+      ...product,
+      images: previewImages // In real app, these would be URLs from your server
+    });
+    
+    alert('Product added successfully!');
+    navigate('/products');
+  };
 
   return (
-    <div className="product-listing-page">
-      <div className="listing-header">
-        <h1>Shop All Products</h1>
-        <p>{filteredProducts.length} products found</p>
-      </div>
-
-      <div className="listing-container">
-        <button 
-          className="mobile-filter-btn"
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <FaFilter /> Filters
-        </button>
-
-        <aside className={`filters-sidebar ${showFilters ? 'show' : ''}`}>
-          <div className="filter-section">
-            <h3>Categories</h3>
-            <select 
-              name="category" 
-              value={filters.category}
-              onChange={handleFilterChange}
+    <div className="add-product-page">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        <FaArrowLeft /> Back
+      </button>
+      
+      <h1>Add New Product</h1>
+      
+      <form onSubmit={handleSubmit} className="product-form">
+        {/* Basic Information Section */}
+        <div className="form-section">
+          <h2>Basic Information</h2>
+          
+          <div className="form-group">
+            <label htmlFor="name">Product Name*</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              required
+              placeholder="Enter product name"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="description">Description*</label>
+            <textarea
+              id="description"
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              required
+              rows="4"
+              placeholder="Enter product description"
+            />
+          </div>
+          
+          <div className="price-row">
+            <div className="form-group">
+              <label htmlFor="price">Price ($)*</label>
+              <input
+                id="price"
+                type="number"
+                name="price"
+                value={product.price}
+                onChange={handleChange}
+                min="0"
+                step="0.01"
+                required
+                placeholder="0.00"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="originalPrice">Original Price ($)</label>
+              <input
+                id="originalPrice"
+                type="number"
+                name="originalPrice"
+                value={product.originalPrice}
+                onChange={handleChange}
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="category">Category*</label>
+            <select
+              id="category"
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              required
             >
-              <option value="">All Categories</option>
+              <option value="">Select category</option>
               <option value="Women">Women</option>
               <option value="Men">Men</option>
               <option value="Kids">Kids</option>
@@ -118,119 +171,146 @@ const ProductListing = () => {
               <option value="Shoes">Shoes</option>
             </select>
           </div>
-
-          <div className="filter-section">
-            <h3>Price Range</h3>
-            <select 
-              name="priceRange" 
-              value={filters.priceRange}
-              onChange={handleFilterChange}
-            >
-              <option value="">All Prices</option>
-              <option value="under50">Under $50</option>
-              <option value="50to100">$50 - $100</option>
-              <option value="over100">Over $100</option>
-            </select>
+          
+          <div className="checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="inStock"
+                checked={product.inStock}
+                onChange={handleChange}
+              />
+              <span>In Stock</span>
+            </label>
+            
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="isNew"
+                checked={product.isNew}
+                onChange={handleChange}
+              />
+              <span>New Arrival</span>
+            </label>
           </div>
-
-          <div className="filter-section">
-            <h3>Sort By</h3>
-            <select 
-              name="sortBy" 
-              value={filters.sortBy}
-              onChange={handleFilterChange}
-            >
-              <option value="popular">Popular</option>
-              <option value="newest">Newest</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Rating</option>
-            </select>
-          </div>
-
-          <button 
-            className="clear-filters-btn"
-            onClick={() => setFilters({
-              category: '',
-              priceRange: '',
-              size: '',
-              color: '',
-              sortBy: 'popular',
-            })}
-          >
-            Clear All Filters
-          </button>
-        </aside>
-
-        <main className="products-grid">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image-container">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="product-image"
-                    onClick={() => navigate(`/product/${product.id}`)}
-                  />
-                  {product.isNew && <span className="product-badge new">New</span>}
-                  {product.discount > 0 && (
-                    <span className="product-badge discount">-{product.discount}%</span>
-                  )}
-                  {!product.inStock && (
-                    <span className="product-badge out-of-stock">Out of Stock</span>
-                  )}
-                  <button
-                    className="wishlist-btn"
-                    onClick={() => toggleWishlist(product.id)}
-                  >
-                    {wishlist.includes(product.id) ? (
-                      <FaHeart className="wishlist-icon filled" />
-                    ) : (
-                      <FaRegHeart className="wishlist-icon" />
-                    )}
-                  </button>
-                </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-description">{product.description}</p>
-                  <div className="product-rating">
-                    <div className="stars">
-                      {renderRatingStars(product.rating)}
-                      <span className="rating-value">{product.rating}</span>
-                    </div>
-                    <span className="review-count">({product.reviewCount})</span>
-                  </div>
-                  <div className="product-pricing">
-                    {product.discount > 0 && (
-                      <span className="original-price">${product.originalPrice.toFixed(2)}</span>
-                    )}
-                    <span className="current-price">${product.price.toFixed(2)}</span>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="no-products">
-              <h3>No products match your filters</h3>
-              <button 
-                className="clear-filters-btn"
-                onClick={() => setFilters({
-                  category: '',
-                  priceRange: '',
-                  size: '',
-                  color: '',
-                  sortBy: 'popular',
-                })}
-              >
-                Clear Filters
+        </div>
+        
+        {/* Variants Section */}
+        <div className="form-section">
+          <h2>Variants</h2>
+          
+          <div className="form-group">
+            <label>Colors</label>
+            <div className="variant-input-group">
+              <input
+                type="text"
+                value={currentColor}
+                onChange={(e) => setCurrentColor(e.target.value)}
+                placeholder="Add color (e.g., Red)"
+              />
+              <button type="button" onClick={addColor} className="add-variant-btn">
+                <FaPlus />
               </button>
             </div>
-          )}
-        </main>
-      </div>
+            {product.colors.length > 0 && (
+              <div className="variant-tags">
+                {product.colors.map((color, index) => (
+                  <span key={index} className="variant-tag">
+                    {color}
+                    <button 
+                      type="button" 
+                      onClick={() => removeColor(color)}
+                      className="remove-variant-btn"
+                    >
+                      <FaMinus />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <div className="form-group">
+            <label>Sizes</label>
+            <div className="variant-input-group">
+              <input
+                type="text"
+                value={currentSize}
+                onChange={(e) => setCurrentSize(e.target.value)}
+                placeholder="Add size (e.g., M)"
+              />
+              <button type="button" onClick={addSize} className="add-variant-btn">
+                <FaPlus />
+              </button>
+            </div>
+            {product.sizes.length > 0 && (
+              <div className="variant-tags">
+                {product.sizes.map((size, index) => (
+                  <span key={index} className="variant-tag">
+                    {size}
+                    <button 
+                      type="button" 
+                      onClick={() => removeSize(size)}
+                      className="remove-variant-btn"
+                    >
+                      <FaMinus />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Images Section */}
+        <div className="form-section">
+          <h2>Product Images</h2>
+          
+          <div className="form-group">
+            <label>Upload Images (Max 5)*</label>
+            <div className="image-upload-container">
+              <label htmlFor="product-images" className="upload-button">
+                <FaUpload /> Choose Images
+                <input
+                  id="product-images"
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  required
+                  max="5"
+                />
+              </label>
+              <span className="file-info">
+                {images.length > 0 ? `${images.length} files selected` : 'No files selected'}
+              </span>
+            </div>
+            
+            {previewImages.length > 0 && (
+              <div className="image-previews">
+                {previewImages.map((preview, index) => (
+                  <div key={index} className="image-preview">
+                    <img src={preview} alt={`Preview ${index + 1}`} />
+                    <span>{images[index].name}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Form Actions */}
+        <div className="form-actions">
+          <button type="button" className="cancel-button" onClick={() => navigate('/products')}>
+            Cancel
+          </button>
+          <button type="submit" className="submit-button">
+            Save Product
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default ProductListing;
+export default AddProduct;

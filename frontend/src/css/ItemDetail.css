@@ -1,0 +1,439 @@
+/* Base Styles */
+.item-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  color: #0066cc;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Gallery Styles */
+.item-gallery {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+/* Item Info Styles */
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-header h1 {
+  font-size: 28px;
+  margin: 0;
+  color: #333;
+}
+
+.favorite-button {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.favorite-button:hover {
+  border-color: #ff6b6b;
+}
+
+.favorite-button.active {
+  background-color: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #666;
+}
+
+.brand {
+  font-weight: bold;
+  color: #333;
+}
+
+.upload-date {
+  font-size: 14px;
+}
+
+.item-price {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.points-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2a9d8f;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.shipping-info {
+  color: #2a9d8f;
+  font-size: 14px;
+}
+
+.item-description {
+  line-height: 1.6;
+}
+
+.item-description h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Specs Styles */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-label {
+  font-weight: bold;
+  color: #555;
+  font-size: 14px;
+}
+
+.spec-value {
+  color: #333;
+}
+
+.filled {
+  color: #ffd700;
+}
+
+.empty {
+  color: #ddd;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #555;
+}
+
+/* Uploader Info */
+.uploader-info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.uploader-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.uploader-details h4 {
+  margin: 0 0 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.uploader-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Availability */
+.availability-badge {
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.available {
+  color: #2a9d8f;
+}
+
+.pending {
+  color: #e9c46a;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.swap-button, .points-button, .buy-button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.swap-button {
+  background-color: #4cc9f0;
+  color: white;
+}
+
+.swap-button:hover {
+  background-color: #3aa8d8;
+}
+
+.swap-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.points-button {
+  background-color: #2a9d8f;
+  color: white;
+}
+
+.points-button:hover {
+  background-color: #21867a;
+}
+
+.points-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.buy-button {
+  background-color: #f72585;
+  color: white;
+}
+
+.buy-button:hover {
+  background-color: #d3166d;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.swap-options {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.swap-item-option {
+  display: flex;
+  align-items: center;
+}
+
+.swap-item-option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.swap-item-option label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.swap-item-option img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.swap-item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.quantity-selector input {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.confirmation-message {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button {
+  padding: 10px 15px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #f8f9fa;
+}
+
+.confirm-button {
+  padding: 10px 15px;
+  background-color: #2a9d8f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: #21867a;
+}
+
+.confirm-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Loading and Error States */
+.loading-spinner, .error-message, .not-found {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+}
+
+.error-message {
+  color: #e63946;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .item-content {
+    flex-direction: row;
+  }
+  
+  .item-gallery {
+    flex: 1;
+  }
+  
+  .item-info {
+    flex: 1;
+    padding-left: 30px;
+  }
+  
+  .action-buttons {
+    flex-direction: row;
+  }
+  
+  .action-buttons button {
+    flex: 1;
+  }
+}
