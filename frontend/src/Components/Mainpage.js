@@ -309,6 +309,26 @@ const Mainpage = () => {
       </section>
 
       <section className="products-section">
+        {cart.length > 0 && (
+          <div className="cart-sidebar">
+            <h3>Your Cart</h3>
+            <div className="cart-items-scroll">
+              {cart.map((id, index) => {
+                const product = products.find(p => p.id === id);
+                return (
+                  <div key={index} className="cart-item">
+                    <img src={product.imageUrl} alt={product.name} />
+                    <div>
+                      <p>{product.name}</p>
+                      <span>${product.price}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div className="container">
           <h2 className="section-title">Featured Products</h2>
           <div className="products-grid">
